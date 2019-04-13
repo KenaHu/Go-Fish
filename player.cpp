@@ -5,6 +5,8 @@
 
 Player::Player(){
     myName = "";
+unsigned int currentTime = (unsigned)time(0);
+srand(currentTime);
 }
 
 void Player::addCard(Card c) {  //adds a card to the hand
@@ -23,6 +25,9 @@ void Player::bookCards(Card c1, Card c2){
 //If a pair is found, it returns true and populates the two variables with the cards tha make the pair.
 
 bool Player::checkHandForBook(Card &c1, Card &c2){
+    if (myHand.empty()){
+    	return false;
+    }
     for (vector<Card>::iterator i=myHand.begin(); i != myHand.end()-1; i++){
         c1 = *i;
         for (vector<Card>::iterator j=i+1; j != myHand.end(); j++) {
@@ -43,19 +48,15 @@ bool Player::checkHandForBook(Card &c1, Card &c2){
 //hand so they can say "Do you have a 4?"
 Card Player::chooseCardFromHand() const{
     int random = myHand.size();
-    if (random != 0){
         random = (rand() % random);
         return myHand[random];
-    }
-    else
-        return Card(0,Card::Suit::hearts);
 }
 
 //Does the player have the card c in her hand?
 bool Player::cardInHand(Card c) const{
     if (myHand.empty())
         return false;
-    for (auto i=myHand.begin();i!=myHand.end(); i++){
+    for (vector<Card>::const_iterator i = myHand.begin(); i != myHand.end(); i++){
             if (*i == c)
                 return true;
         }
@@ -64,7 +65,7 @@ bool Player::cardInHand(Card c) const{
 
 //Remove the card c from the hand and return it to the caller
 Card Player::removeCardFromHand(Card c){
-    auto i=myHand.begin();
+    vector<Card>::iterator  i=myHand.begin();
     while((i != myHand.end()) && (*i!=c)){
         i++;
     }
@@ -75,14 +76,14 @@ Card Player::removeCardFromHand(Card c){
 
 string Player::showHand() const{
     string temp;
-    for (auto i = myHand.begin(); i != myHand.end(); i++){
+    for (vector<Card>::const_iterator i = myHand.begin(); i != myHand.end(); i++){
         temp +=i->toString() + " ";
     }
     return temp;
 }
 string Player::showBooks() const{
     string temp;
-    for (auto i = myBook.begin(); i != myBook.end(); i++){
+    for (vector<Card>::const_iterator i = myBook.begin(); i != myBook.end(); i++){
         temp +=i->rankString(i->getRank()) + " ";
     }
     return temp;

@@ -2,6 +2,9 @@
 // Created by hurdk on 4/12/2019.
 //
 #include <ctime>
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
 #include "deck.h"
 
 Deck::Deck() {           // pristine, sorted deck
@@ -14,7 +17,7 @@ Deck::Deck() {           // pristine, sorted deck
     }
 
     myIndex=0;
-    unsigned int currentTime = (unsigned) time(0);
+    unsigned int currentTime = (unsigned)time(0);
     srand(currentTime);
 }
 

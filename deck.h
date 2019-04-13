@@ -17,7 +17,8 @@
 #define _DECK_H
 
 #include "card.h"
-
+#include <ctime>
+#include <fstream>
 
 class Deck
 {
